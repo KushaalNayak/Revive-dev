@@ -1,0 +1,239 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String            @id @default(cuid())
+  name             String?
+  email            String?           @unique
+  emailVerified    DateTime?
+  image            String?
+  username         String?           @unique
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  accounts         Account[]
+  projectsAdopted  Project[]         @relation("Adopted")
+  projectsOwned    Project[]         @relation("Owner")
+  requests         Request[]
+  savedProjects    SavedProject[]
+  sessions         Session[]
+  tickets          SupportTicket[]
+  revivals         Revival[]
+  savedGlobalRepos SavedGlobalRepo[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Project {
+  id                 String            @id @default(cuid())
+  ownerId            String
+  repoUrl            String
+  repoFullName       String
+  slug               String            @unique
+  title              String
+  shortDescription   String
+  status             ProjectStatus     @default(LOOKING_FOR_HELP)
+  completionStage    CompletionStage
+  abandonmentReason  AbandonmentReason
+  helpNeeded         HelpType[]
+  tags               String[]
+  lastRepoActivityAt DateTime?
+  handoffWhat        String?
+  handoffCompleted   String?
+  handoffPending     String?
+  handoffSetup       String?
+  handoffKnownIssues String?
+  handoffNotes       String?
+  isPriority         Boolean           @default(false)
+  priorityExpiresAt  DateTime?
+  adoptedById        String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  healthScore        Int               @default(100)
+  language           String?
+  lastCommitDate     DateTime?
+  stars              Int               @default(0)
+  revivalMode        RevivalMode       @default(OPEN_SOURCE)
+  analysis           AIAnalysis?
+  adoptedBy          User?             @relation("Adopted", fields: [adoptedById], references: [id])
+  owner              User              @relation("Owner", fields: [ownerId], references: [id])
+  requests           Request[]
+  savedIn            SavedProject[]
+  supportTickets     SupportTicket[]
+}
+
+model AIAnalysis {
+  id                   String          @id @default(cuid())
+  projectId            String          @unique
+  summary              String
+  problemsDetected     String[]
+  revivalRoadmap       String[]
+  difficultyLevel      DifficultyLevel @default(MEDIUM)
+  structureExplanation String?
+  stoppageReason       String?
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  project              Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Request {
+  id          String        @id @default(cuid())
+  projectId   String
+  requesterId String
+  type        RequestType
+  message     String
+  status      RequestStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  revivalMode RevivalMode?
+  project     Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  requester   User          @relation(fields: [requesterId], references: [id], onDelete: Cascade)
+}
+
+model SupportTicket {
+  id          String       @id @default(cuid())
+  projectId   String
+  requestId   String
+  requesterId String
+  message     String
+  status      TicketStatus @default(OPEN)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  requester   User         @relation(fields: [requesterId], references: [id])
+}
+
+model SavedProject {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String
+  createdAt DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+}
+
+model SavedGlobalRepo {
+  id           String   @id @default(cuid())
+  userId       String
+  repoFullName String
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, repoFullName])
+}
+
+model Revival {
+  id           String   @id @default(cuid())
+  userId       String
+  repoFullName String
+  revivalType  String
+  status       String   @default("in_progress")
+  forkUrl      String?
+  startedAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, repoFullName])
+}
+
+enum RevivalMode {
+  OPEN_SOURCE
+  COLLABORATIVE
+  INDEPENDENT
+}
+
+enum ProjectStatus {
+  LOOKING_FOR_HELP
+  IN_PROGRESS
+  REVIVED
+  ARCHIVED
+}
+
+enum CompletionStage {
+  IDEA
+  EARLY_PROTOTYPE
+  HALF_DONE
+  NEARLY_COMPLETE
+}
+
+enum AbandonmentReason {
+  NO_TIME
+  SOLO_LIMIT
+  LOST_INTEREST
+  NEED_SKILL
+  OTHER
+  ARCHIVED
+  DEPRECATED
+}
+
+enum HelpType {
+  FRONTEND
+  BACKEND
+  DEVOPS
+  DOCS
+  MAINTAINER
+}
+
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum RequestType {
+  ADOPT
+  CONTRIBUTE
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELLED
+}
+
+enum TicketStatus {
+  OPEN
+  SENT_TO_OWNER
+  CLOSED
+}
