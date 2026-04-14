@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     creator: "@KushaalNayak",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
   },
 };
 
