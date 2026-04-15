@@ -35,7 +35,7 @@ Many open-source projects get abandoned midway — not because the idea was bad,
 ## Project Structure
 
 ```
-my-app/
+.
 ├── app/                    # Next.js App Router (pages & API routes)
 │   ├── admin/              # Admin panel for managing escalation tickets
 │   ├── dashboard/          # User dashboard for listings and requests
@@ -82,7 +82,7 @@ my-app/
 
 ```bash
 git clone https://github.com/your-username/revive-dev.git
-cd revive-dev/my-app
+cd revive-dev
 ```
 
 ### 2. Install Dependencies
