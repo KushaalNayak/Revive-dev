@@ -78,7 +78,9 @@ export async function createProjectListing(data: ProjectFormData) {
                     revivalRoadmap: analysis.roadmap,
                     difficultyLevel: analysis.difficulty,
                     stoppageReason: analysis.stoppageReason,
-                    structureExplanation: analysis.structureExplanation
+                    structureExplanation: analysis.structureExplanation,
+                    documentationQuality: analysis.documentationQuality,
+                    issueAnalysis: analysis.issueAnalysis
                 }
             }
         },

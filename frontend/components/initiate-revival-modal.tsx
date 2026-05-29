@@ -87,7 +87,10 @@ export function InitiateRevivalModal({ repo }: { repo: GithubRepo }) {
                     <Plus className="w-5 h-5" /> Initiate Revival
                 </Button>
             </DialogTrigger>
-            <DialogContent className="zf-card bg-[#0A0A0A] border-[#2A2A2A] text-white p-6 sm:p-10 max-w-xl">
+            <DialogContent 
+                className="zf-card bg-[#0A0A0A] border-[#2A2A2A] text-white p-6 sm:p-10 max-w-xl"
+                onInteractOutside={(e) => e.preventDefault()}
+            >
                 <DialogHeader className="mb-6">
                     <DialogTitle className="text-2xl font-black uppercase tracking-wider mb-2">Initiate Revival</DialogTitle>
                     <DialogDescription className="text-[#888888] font-medium">

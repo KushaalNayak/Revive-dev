@@ -81,23 +81,7 @@ export default async function Home() {
           </section>
       </div>
 
-      <footer className="border-t-[0.8px] border-[#373737] py-12 text-center text-[#B9B9B9] text-[14px] bg-[#0B0B0B] relative z-20">
-          <div className="max-w-[1400px] mx-auto px-6 flex flex-col justify-between items-center gap-6 md:flex-row">
-              <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[rgba(255,255,255,0.05)] border-[0.8px] border-[#373737] rounded-full flex items-center justify-center">
-                      <Github className="w-4 h-4 text-white" />
-                  </div>
-                   <span className="font-bold tracking-tight text-white">Revive.dev <span className="opacity-40">© 2026</span></span>
-              </div>
-              <div className="flex flex-wrap justify-center gap-8 font-semibold tracking-wide">
-                  <a href="#" className="hover:text-[#00FF66] transition-colors">Terms</a>
-                  <a href="#" className="hover:text-[#00FF66] transition-colors">Privacy</a>
-                  <a href="#" className="hover:text-[#00FF66] transition-colors">Security</a>
-                  <a href="#" className="hover:text-[#00FF66] transition-colors">Status</a>
-                  <a href="https://github.com/revivedev" className="hover:text-[#00FF66] transition-colors">GitHub</a>
-              </div>
-          </div>
-      </footer>
+
     </div>
   )
 }

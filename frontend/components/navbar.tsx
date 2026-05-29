@@ -29,7 +29,10 @@ export async function Navbar() {
                         <Search className="w-3.5 h-3.5" /> Explore Hub
                     </Link>
                     {session && (
-                        <Link href="/dashboard" className="text-[#B9B9B9] hover:text-white transition-all">Dashboard</Link>
+                        <>
+                            <Link href="/dashboard" className="text-[#B9B9B9] hover:text-white transition-all">Dashboard</Link>
+                            <Link href="/requests" className="text-[#B9B9B9] hover:text-white transition-all">Requests</Link>
+                        </>
                     )}
                 </nav>
 

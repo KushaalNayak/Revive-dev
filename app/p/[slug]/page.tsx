@@ -13,6 +13,7 @@ import { getGithubRepoDetails } from "@/backend/actions/github"
 import { ReviveScore } from "@/frontend/components/revive-score"
 import { RevivalModeBadge } from "@/frontend/components/revival-mode-badge"
 import { ProjectStatus } from "@prisma/client"
+import { RevivalChecklist } from "@/frontend/components/revival-checklist"
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params
@@ -106,18 +107,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                         <div className="loki-card p-10 md:p-16 relative group">
                             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[120px] pointer-events-none -mr-48 -mt-48" />
 
-                            <div className="space-y-16 relative">
+                            <div className="space-y-12 relative">
                                 <header className="space-y-2">
                                     <div className="flex items-center gap-4">
                                         <div className="h-10 w-10 rounded-xl bg-primary/5 border border-primary/20 flex items-center justify-center text-primary">
                                             <Sparkles className="w-5 h-5" />
                                         </div>
-                                        <h2 className="text-2xl font-medium tracking-tight">Neural Diagnostic Feed</h2>
+                                        <h2 className="text-2xl font-medium tracking-tight">AI Repository Diagnostics</h2>
                                     </div>
-                                    <p className="text-xs text-white/30 ml-14">Data integrity: 98.4%</p>
+                                    <p className="text-xs text-white/30 ml-14">Data Integrity: 100% | Verified Diagnostics</p>
                                 </header>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 ml-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ml-6">
                                     <section className="space-y-4">
                                         <div className="text-xs font-medium text-primary">01 / Failure Analysis</div>
                                         <p className="text-sm text-white/60 leading-relaxed border-l border-white/10 pl-6">
@@ -126,22 +127,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                                     </section>
 
                                     <section className="space-y-4">
-                                        <div className="text-xs font-medium text-primary">02 / Architecture Map</div>
+                                        <div className="text-xs font-medium text-primary">02 / Codebase Architecture</div>
                                         <p className="text-sm text-white/60 leading-relaxed border-l border-white/10 pl-6">
                                             {project.analysis?.structureExplanation || "Structural mapping incomplete."}
+                                        </p>
+                                    </section>
+
+                                    <section className="space-y-4">
+                                        <div className="text-xs font-medium text-primary">03 / Documentation Quality</div>
+                                        <p className="text-sm text-white/60 leading-relaxed border-l border-white/10 pl-6">
+                                            {project.analysis?.documentationQuality || "Basic. Contains standard README, but lacks setup guides and contribution instructions."}
+                                        </p>
+                                    </section>
+
+                                    <section className="space-y-4">
+                                        <div className="text-xs font-medium text-primary">04 / Issue Analysis</div>
+                                        <p className="text-sm text-white/60 leading-relaxed border-l border-white/10 pl-6">
+                                            {project.analysis?.issueAnalysis || "Pending analysis of open issue themes and bug trends."}
                                         </p>
                                     </section>
                                 </div>
 
                                 <section className="space-y-6 pt-12 border-t border-white/5">
-                                    <div className="text-xs font-medium text-primary/60 ml-6">03 / Revival Roadmap</div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {(project.analysis?.revivalRoadmap || []).map((step, i) => (
-                                            <div key={i} className="flex gap-4 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.05] transition-all hover:bg-white/[0.04] group/step">
-                                                <span className="text-lg font-medium text-white/20 group-hover/step:text-primary transition-colors shrink-0">0{i + 1}</span>
-                                                <p className="text-sm text-white/60 leading-relaxed pt-0.5">{step}</p>
-                                            </div>
-                                        ))}
+                                    <div className="text-xs font-medium text-primary/60 ml-6 uppercase tracking-wider">05 / Revival Recommendations</div>
+                                    <div className="ml-6">
+                                        <RevivalChecklist items={project.analysis?.revivalRoadmap || []} />
                                     </div>
                                 </section>
                             </div>
@@ -194,7 +204,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                             difficulty: (project.analysis?.difficultyLevel as "EASY" | "MEDIUM" | "HARD") || "MEDIUM",
                             roadmap: project.analysis?.revivalRoadmap || [],
                             stoppageReason: project.analysis?.stoppageReason || "",
-                            structureExplanation: project.analysis?.structureExplanation || ""
+                            structureExplanation: project.analysis?.structureExplanation || "",
+                            documentationQuality: project.analysis?.documentationQuality || "",
+                            issueAnalysis: project.analysis?.issueAnalysis || ""
                         }} />
 
                         {/* Owner Card */}

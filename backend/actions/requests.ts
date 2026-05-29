@@ -6,7 +6,7 @@ import { authOptions } from "@/backend/lib/auth-options"
 import { requestSchema } from "@/backend/lib/validations"
 import { revalidatePath } from "next/cache"
 
-import { ProjectStatus } from "@prisma/client"
+import { ProjectStatus, RequestStatus, Prisma } from "@prisma/client"
 import { RequestFormData } from "@/backend/lib/validations"
 
 import { sendHandoffRequestEmail, sendHandoffSuccessEmail } from "@/backend/lib/mailer"
@@ -144,17 +144,22 @@ export async function updateRequestStatus(requestId: string, status: "ACCEPTED" 
     return { success: true }
 }
 
-export async function getIncomingRequests() {
+export async function getIncomingRequests(status?: RequestStatus | "ALL") {
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) return []
 
+    const where: Prisma.RequestWhereInput = {
+        project: {
+            ownerId: session.user.id
+        }
+    }
+
+    if (status !== "ALL") {
+        where.status = status || "PENDING"
+    }
+
     return await prisma.request.findMany({
-        where: {
-            project: {
-                ownerId: session.user.id
-            },
-            status: "PENDING"
-        },
+        where,
         include: {
             project: true,
             requester: true

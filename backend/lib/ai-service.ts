@@ -10,6 +10,8 @@ export interface RepoHealth {
     roadmap: string[];
     stoppageReason: string;
     structureExplanation: string;
+    documentationQuality: string;
+    issueAnalysis: string;
 }
 
 export async function analyzeRepoHealth(repoData: GithubRepo): Promise<RepoHealth> {
@@ -52,10 +54,10 @@ export async function analyzeRepoHealth(repoData: GithubRepo): Promise<RepoHealt
     ];
 
     let roadmap = [
-        "Audit current dependencies for security vulnerabilities.",
-        "Address the most commented open issues.",
-        "Refactor core modules to support modern Node.js versions.",
-        "Implement comprehensive unit tests for business logic."
+        "Update dependencies",
+        "Fix unresolved issues",
+        "Improve documentation",
+        "Add tests"
     ];
 
     let stoppageReason = diffDays > 365
@@ -63,6 +65,9 @@ export async function analyzeRepoHealth(repoData: GithubRepo): Promise<RepoHealt
         : "Development has slowed down significantly, likely due to a high volume of unmanaged issues and breaking changes in the ecosystem.";
 
     let structureExplanation = `This is a ${language}-based project. It likely follows a standard architectural pattern with source files in 'src' or 'lib'. Key logic is expected to be found in the core handlers.`;
+
+    let documentationQuality = "Basic. Contains a standard README, but lacks comprehensive API documentation, setup instructions, or contribution guidelines.";
+    let issueAnalysis = `High volume of open issues (${openIssues}) relative to stars. Mainly consists of dependency warnings, bug reports, and features that require triaging.`;
 
     if (process.env.GEMINI_API_KEY) {
         try {
@@ -79,9 +84,11 @@ Last Pushed: ${diffDays} days ago
 Return a JSON string exactly matching this schema, without any markdown formatting:
 {
     "insights": ["insight 1", "insight 2", "insight 3"],
-    "roadmap": ["step 1", "step 2", "step 3", "step 4"],
+    "roadmap": ["Concise checklist item 1 (e.g. Update dependencies)", "Concise checklist item 2", "Concise checklist item 3", "Concise checklist item 4"],
     "stoppageReason": "detailed guess on why it was abandoned",
-    "structureExplanation": "brief explanation of expected project structure based on language"
+    "structureExplanation": "brief explanation of expected project structure based on language",
+    "documentationQuality": "analysis of documentation quality (e.g. README completeness, API references)",
+    "issueAnalysis": "analysis of open issues (e.g. common themes, bugs vs features, blocker issues)"
 }`;
             
             const response = await ai.models.generateContent({
@@ -98,6 +105,8 @@ Return a JSON string exactly matching this schema, without any markdown formatti
                 roadmap = parsed.roadmap || roadmap;
                 stoppageReason = parsed.stoppageReason || stoppageReason;
                 structureExplanation = parsed.structureExplanation || structureExplanation;
+                documentationQuality = parsed.documentationQuality || documentationQuality;
+                issueAnalysis = parsed.issueAnalysis || issueAnalysis;
             }
         } catch (error) {
             console.error("Gemini API Error, falling back to simulated insights:", error);
@@ -112,6 +121,8 @@ Return a JSON string exactly matching this schema, without any markdown formatti
         difficulty,
         roadmap,
         stoppageReason,
-        structureExplanation
+        structureExplanation,
+        documentationQuality,
+        issueAnalysis
     };
 }

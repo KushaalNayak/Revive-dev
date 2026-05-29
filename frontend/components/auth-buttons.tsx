@@ -71,6 +71,9 @@ export function UserNav() {
                     <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#171717] hover:bg-[#171717] focus:text-[#00FF66] px-3 py-2.5 transition-colors rounded-[8px] border-none outline-none mx-1">
                         <Link href="/dashboard/new" className="w-full text-[14px] font-medium">List New Project</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#171717] hover:bg-[#171717] focus:text-[#00FF66] px-3 py-2.5 transition-colors rounded-[8px] border-none outline-none mx-1">
+                        <Link href="/requests" className="w-full text-[14px] font-medium">Adoption Requests</Link>
+                    </DropdownMenuItem>
                     
                     <div className="h-[0.8px] bg-[#373737] my-1 mx-1" />
                     
