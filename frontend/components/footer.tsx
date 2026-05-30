@@ -17,13 +17,13 @@ export function Footer() {
                             Establishing the digital inheritance protocol for abandoned open source code. 
                         </p>
                         <div className="flex items-center gap-5">
-                            <a href="#" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
+                            <a href="https://github.com/KushaalNayak/Revive-dev" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
                                 <Github className="w-4 h-4" />
                             </a>
-                            <a href="#" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
                                 <Twitter className="w-4 h-4" />
                             </a>
-                            <a href="#" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
                                 <Linkedin className="w-4 h-4" />
                             </a>
                         </div>

@@ -171,6 +171,19 @@ export default async function ExplorePage({
 
                 {/* Main Content */}
                 <div className="flex-1">
+                    {tab === "global" && (
+                        <div className="mb-10 p-6 zf-card bg-[#111111] border-[#00FF66]/20 relative overflow-hidden group">
+                            <div className="absolute top-0 left-0 w-1 h-full bg-[#00FF66] shadow-[0_0_20px_#00FF66]" />
+                            <div className="flex items-center gap-3 mb-3">
+                                <Radar className="w-5 h-5 text-[#00FF66] animate-pulse" />
+                                <h4 className="text-[#00FF66] font-bold uppercase tracking-widest text-[14px]">Global Scanner Notice</h4>
+                            </div>
+                            <p className="text-[#B9B9B9] text-[13px] leading-relaxed uppercase tracking-wider font-medium">
+                                THESE ARE DEMO TOOK FROM THE GITHUB WE MAY NOT KNOW HOW IF THE USER REALLY ABANDONED IT OR NOT IF U WANT TO LEAVE UR PROJECT HERE <Link href="/dashboard/new" className="text-white hover:text-[#00FF66] underline decoration-[#00FF66]/50 underline-offset-4 transition-colors">FILL UR FORM HERE</Link> AND IF SOMEONE ACTUALLY NEEDS IT THEN IT WILL COME TO UR INBOX THANKYOU FROM REVIVEDEV TEAM
+                            </p>
+                        </div>
+                    )}
+
                     {tab === "global" && session && (
                         <AiSearchBar />
                     )}
@@ -271,9 +284,12 @@ export default async function ExplorePage({
                                 <Search className="w-8 h-8 text-[#444]" />
                             </div>
                             <h3 className="text-3xl font-extrabold mb-6 text-white zf-heading uppercase tracking-widest">No Results</h3>
-                            <p className="text-[#B9B9B9] max-w-sm text-[16px] opacity-60 leading-relaxed">
-                                No repositories found for your search. Try adjusting your filters.
+                            <p className="text-[#B9B9B9] max-w-md text-[16px] opacity-80 leading-relaxed mb-8">
+                                No repositories found for your search. Try adjusting your filters or list your own abandoned project to let others revive it!
                             </p>
+                            <Link href="/dashboard/new" className="zf-button px-10 py-4 text-[14px] font-bold uppercase tracking-widest flex items-center gap-2">
+                                <Plus className="w-5 h-5" /> Fill Form Here
+                            </Link>
                         </div>
                     )}
                 </div>
