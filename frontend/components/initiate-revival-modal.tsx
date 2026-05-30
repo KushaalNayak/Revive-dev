@@ -20,26 +20,12 @@ export function InitiateRevivalModal({ repo }: { repo: GithubRepo }) {
     const [step, setStep] = useState<"options" | "forkUrl" | "roadmap">("options")
     const [isLoading, setIsLoading] = useState(false)
     const [forkUrl, setForkUrl] = useState("")
-    const [roadmap, setRoadmap] = useState<string[]>([])
 
     const handleSelectOption = async (option: "contribute" | "fork" | "request") => {
         setIsLoading(true)
         try {
             await createRevivalRecord({ repoFullName: repo.full_name, revivalType: option })
             
-            // Trigger AI roadmap creation
-            try {
-                const res = await fetch('/api/ai/roadmap', {
-                    method: 'POST',
-                    body: JSON.stringify({ repoFullName: repo.full_name, description: repo.description, language: repo.language })
-                })
-                const data = await res.json()
-                if (data.roadmap) {
-                    setRoadmap(data.roadmap)
-                }
-            } catch (e) {
-                console.error("AI Roadmap failed", e)
-            }
             
             if (option === "contribute") {
                 toast.success("Revival initiated. Redirecting to repository...")
@@ -182,23 +168,7 @@ export function InitiateRevivalModal({ repo }: { repo: GithubRepo }) {
                             <h4 className="font-bold text-[#00FF66] text-xl mb-4 flex items-center gap-2">
                                 🔥 Revival in Progress
                             </h4>
-                            <p className="text-sm text-[#888888] mb-6">Our AI has generated a suggested roadmap to get you started.</p>
-                            
-                            <div className="space-y-3">
-                                {roadmap.length > 0 ? roadmap.map((item, i) => (
-                                    <div key={i} className="flex items-start gap-3 bg-[#0A0A0A] p-4 rounded-lg border-[0.8px] border-[#373737]">
-                                        <div className="w-6 h-6 rounded-full bg-[#00FF66]/10 text-[#00FF66] flex items-center justify-center flex-shrink-0 font-bold text-xs">
-                                            {i + 1}
-                                        </div>
-                                        <p className="text-sm text-white leading-relaxed">{item}</p>
-                                    </div>
-                                )) : (
-                                    <div className="flex items-center justify-center p-8 bg-[#0A0A0A] rounded-lg border-[0.8px] border-[#373737]">
-                                        <div className="w-5 h-5 rounded-full border-2 border-[#00FF66] border-t-transparent animate-spin"></div>
-                                        <span className="text-[#888888] text-sm ml-3">Generating neural roadmap...</span>
-                                    </div>
-                                )}
-                            </div>
+                            <p className="text-sm text-[#888888] mb-6">You are now ready to begin the revival process. Check your repository or issues for the next steps.</p>
                         </div>
 
                         <Button 

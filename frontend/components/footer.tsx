@@ -35,17 +35,17 @@ export function Footer() {
                             <li><Link href="/explore" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Discovery Hub</Link></li>
                             <li><Link href="/explore?tab=global" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Global Scanner</Link></li>
                             <li><Link href="/dashboard/new" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">List a Project</Link></li>
-                            <li><Link href="#" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">API Documentation</Link></li>
+                            <li><Link href="/api-docs" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">API Documentation</Link></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[11px] mb-8">Platform</h4>
                         <ul className="space-y-4">
-                            <li><Link href="#" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Case Studies</Link></li>
-                            <li><Link href="#" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Community Roadmap</Link></li>
-                            <li><Link href="#" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Security Protocol</Link></li>
-                            <li><Link href="#" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Partner Program</Link></li>
+                            <li><Link href="/case-studies" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Case Studies</Link></li>
+                            <li><Link href="/roadmap" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Community Roadmap</Link></li>
+                            <li><Link href="/security" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Security Protocol</Link></li>
+                            <li><Link href="/partners" className="text-[#666] hover:text-white transition-colors text-[14px] font-medium">Partner Program</Link></li>
                         </ul>
                     </div>
 
@@ -54,10 +54,10 @@ export function Footer() {
                         <div className="p-6 rounded-[20px] bg-white/[0.02] border border-[#373737] space-y-4">
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-2 rounded-full bg-[#00FF66] animate-pulse" />
-                                <span className="text-[12px] font-bold text-white tracking-wide uppercase">AI Engine Online</span>
+                                <span className="text-[12px] font-bold text-white tracking-wide uppercase">Platform Online</span>
                             </div>
                             <p className="text-[12px] text-[#666] leading-relaxed">
-                                Our neural diagnostics are monitoring 1.2M+ abandoned repos.
+                                Our scanners are currently monitoring 1.2M+ abandoned repos.
                             </p>
                         </div>
                     </div>
@@ -68,8 +68,8 @@ export function Footer() {
                         Built with <Heart className="w-3 h-3 text-red-500 fill-current" /> by ReviveDev
                     </p>
                     <div className="flex items-center gap-8">
-                        <Link href="#" className="text-[#333] hover:text-[#666] transition-colors text-[11px] font-bold uppercase tracking-widest">Privacy</Link>
-                        <Link href="#" className="text-[#333] hover:text-[#666] transition-colors text-[11px] font-bold uppercase tracking-widest">Terms</Link>
+                        <Link href="/privacy" className="text-[#333] hover:text-[#666] transition-colors text-[11px] font-bold uppercase tracking-widest">Privacy</Link>
+                        <Link href="/terms" className="text-[#333] hover:text-[#666] transition-colors text-[11px] font-bold uppercase tracking-widest">Terms</Link>
                     </div>
                 </div>
             </div>

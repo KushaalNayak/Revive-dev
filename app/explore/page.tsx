@@ -10,7 +10,6 @@ import Link from "next/link"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/backend/lib/auth-options"
 import { cn } from "@/frontend/lib/utils"
-import { AiSearchBar } from "@/frontend/components/ai-search-bar"
 import { Pagination } from "@/frontend/components/pagination"
 
 export const dynamic = "force-dynamic"
@@ -179,13 +178,9 @@ export default async function ExplorePage({
                                 <h4 className="text-[#00FF66] font-bold uppercase tracking-widest text-[14px]">Global Scanner Notice</h4>
                             </div>
                             <p className="text-[#B9B9B9] text-[13px] leading-relaxed uppercase tracking-wider font-medium">
-                                THESE ARE DEMO TOOK FROM THE GITHUB WE MAY NOT KNOW HOW IF THE USER REALLY ABANDONED IT OR NOT IF U WANT TO LEAVE UR PROJECT HERE <Link href="/dashboard/new" className="text-white hover:text-[#00FF66] underline decoration-[#00FF66]/50 underline-offset-4 transition-colors">FILL UR FORM HERE</Link> AND IF SOMEONE ACTUALLY NEEDS IT THEN IT WILL COME TO UR INBOX THANKYOU FROM REVIVEDEV TEAM
+                                PLEASE NOTE: THESE RESULTS ARE PULLED DIRECTLY FROM GITHUB BASED ON YOUR SEARCH CRITERIA. WE CANNOT GUARANTEE WHETHER THESE REPOSITORIES HAVE BEEN OFFICIALLY ABANDONED BY THEIR AUTHORS. IF YOU OWN AN INACTIVE PROJECT AND WISH TO FIND NEW MAINTAINERS, <Link href="/dashboard/new" className="text-white hover:text-[#00FF66] underline decoration-[#00FF66]/50 underline-offset-4 transition-colors">PLEASE LIST IT HERE</Link>. INTERESTED DEVELOPERS WILL BE ABLE TO CONTACT YOU DIRECTLY. THANK YOU, THE REVIVEDEV TEAM.
                             </p>
                         </div>
-                    )}
-
-                    {tab === "global" && session && (
-                        <AiSearchBar />
                     )}
 
                     {(tab === "platform" || tab === "saved") ? (
