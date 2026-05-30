@@ -6,7 +6,6 @@ import { prisma } from "@/backend/lib/prisma"
 import { Adapter } from "next-auth/adapters"
 
 export const authOptions: NextAuthOptions = {
-    // @ts-expect-error - Excessive stack depth due to custom Prisma client output
     adapter: PrismaAdapter(prisma) as Adapter,
     providers: [
         GithubProvider({
