@@ -133,10 +133,25 @@ export type GithubRepo = {
 }
 
 export async function searchGithubRepositories(query: string = "topic:help-wanted", page: number = 1) {
+    const session = await getServerSession(authOptions);
+    let accessToken = process.env.GITHUB_TOKEN;
+
+    if (session?.user?.id) {
+        const account = await prisma.account.findFirst({
+            where: {
+                userId: session.user.id,
+                provider: "github",
+            },
+        });
+        if (account?.access_token) {
+            accessToken = account.access_token;
+        }
+    }
+
     const res = await fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=updated&per_page=10&page=${page}`, {
         headers: {
             "Accept": "application/vnd.github.v3+json",
-            ...(process.env.GITHUB_TOKEN ? { "Authorization": `Bearer ${process.env.GITHUB_TOKEN}` } : {})
+            ...(accessToken ? { "Authorization": `Bearer ${accessToken}` } : {})
         },
         next: { revalidate: 60 }
     })
@@ -184,10 +199,25 @@ export async function searchAbandonedGithubRepos({
 }
 
 export async function getGithubRepoDetails(fullName: string) {
+    const session = await getServerSession(authOptions);
+    let accessToken = process.env.GITHUB_TOKEN;
+
+    if (session?.user?.id) {
+        const account = await prisma.account.findFirst({
+            where: {
+                userId: session.user.id,
+                provider: "github",
+            },
+        });
+        if (account?.access_token) {
+            accessToken = account.access_token;
+        }
+    }
+
     const res = await fetch(`https://api.github.com/repos/${fullName}`, {
         headers: {
             "Accept": "application/vnd.github.v3+json",
-            ...(process.env.GITHUB_TOKEN ? { "Authorization": `Bearer ${process.env.GITHUB_TOKEN}` } : {})
+            ...(accessToken ? { "Authorization": `Bearer ${accessToken}` } : {})
         },
         next: { revalidate: 60 }
     })
