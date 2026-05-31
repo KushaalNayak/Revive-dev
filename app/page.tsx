@@ -6,7 +6,6 @@ import { authOptions } from "@/backend/lib/auth-options"
 import { ProjectStatus } from "@prisma/client"
 
 export default async function Home() {
-  const projects = await getExploreProjects({ status: ProjectStatus.LOOKING_FOR_HELP })
   const session = await getServerSession(authOptions)
 
   return (
