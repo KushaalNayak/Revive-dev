@@ -87,17 +87,35 @@ export function ProjectsFilter() {
         router.push(`/explore?${createQueryString(key, val)}`)
     }
 
+    const handleClearFilters = () => {
+        setSearch("")
+        const tab = searchParams.get("tab")
+        if (tab) {
+            router.push(`/explore?tab=${tab}`)
+        } else {
+            router.push("/explore")
+        }
+    }
+
     return (
         <div className="flex flex-col gap-6">
-            <div className="relative group">
-                <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#B9B9B9] group-focus-within:text-[#00FF66] transition-colors" />
-                <input
-                    placeholder="Search repositories..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    className="zf-input w-full pl-16 text-[15px]"
-                />
+            <div className="flex flex-col gap-3">
+                <div className="relative group w-full">
+                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#B9B9B9] group-focus-within:text-[#00FF66] transition-colors" />
+                    <input
+                        placeholder="Search repositories..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                        className="zf-input w-full pl-16 text-[15px]"
+                    />
+                </div>
+                <button 
+                    onClick={handleSearch}
+                    className="zf-button w-full text-[14px] font-bold py-3"
+                >
+                    Search
+                </button>
             </div>
             
             <div className="flex flex-col gap-5">
@@ -118,9 +136,9 @@ export function ProjectsFilter() {
             </div>
             
             {/* Reset */}
-            {(searchParams.toString() !== "") && (
+            {(searchParams.toString() !== "" && searchParams.toString() !== "tab=global" && searchParams.toString() !== "tab=platform" && searchParams.toString() !== "tab=saved") && (
                 <button
-                    onClick={() => router.push("/explore")}
+                    onClick={handleClearFilters}
                     className="zf-button-outline w-full mt-4 text-[14px]"
                 >
                     Clear filters
