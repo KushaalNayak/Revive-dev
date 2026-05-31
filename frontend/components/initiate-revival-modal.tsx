@@ -22,18 +22,23 @@ export function InitiateRevivalModal({ repo }: { repo: GithubRepo }) {
     const [forkUrl, setForkUrl] = useState("")
 
     const handleSelectOption = async (option: "contribute" | "fork" | "request") => {
+        // Open window synchronously to avoid popup blockers
+        let newWindow: Window | null = null
+        if (option === "contribute") {
+            newWindow = window.open(repo.html_url, "_blank")
+        } else if (option === "fork") {
+            newWindow = window.open(`https://github.com/${repo.full_name}/fork`, "_blank")
+        }
+
         setIsLoading(true)
         try {
             await createRevivalRecord({ repoFullName: repo.full_name, revivalType: option })
             
-            
             if (option === "contribute") {
                 toast.success("Revival initiated. Redirecting to repository...")
-                window.open(repo.html_url, "_blank")
                 setStep("roadmap")
             } else if (option === "fork") {
                 toast.success("Revival initiated. Please create your fork.")
-                window.open(`https://github.com/${repo.full_name}/fork`, "_blank")
                 setStep("forkUrl")
             } else if (option === "request") {
                 toast.success("Request sent to maintainer.")
@@ -42,6 +47,7 @@ export function InitiateRevivalModal({ repo }: { repo: GithubRepo }) {
         } catch (err: unknown) {
             const error = err as {message?: string}
             toast.error(error.message || "Failed to initiate revival.")
+            if (newWindow) newWindow.close()
         } finally {
             setIsLoading(false)
         }
