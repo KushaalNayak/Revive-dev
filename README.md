@@ -1,181 +1,130 @@
-# revive.dev
+# <p align="center"><img src="./public/icon.png" width="48" height="48" alt="revive.dev Logo" style="vertical-align: middle; margin-right: 12px;" /> revive.dev</p>
 
-> A platform that breathes new life into abandoned and idle open-source GitHub repositories — by connecting their original owners with developers who want to adopt, contribute, or revive them.
+<p align="center">
+  <strong>The Digital Inheritance Protocol for Open Source Code</strong>
+</p>
 
----
-
-## What is revive.dev?
-
-Many open-source projects get abandoned midway — not because the idea was bad, but because life gets in the way. **revive.dev** is a community-driven platform that makes it easy to:
-
-- **List** your stalled or unfinished GitHub repositories for others to discover
-- **Explore** idle open-source repos from GitHub's public archive
-- **Request** to adopt or contribute to a project
-- **Get AI-powered diagnostics** on why a project stalled and how to revive it
-- **Escalate** to admins when repo owners are unresponsive
+<p align="center">
+  <a href="https://github.com/KushaalNayak/Revive-dev/stargazers"><img src="https://img.shields.io/github/stars/KushaalNayak/Revive-dev?style=for-the-badge&color=00FF66&labelColor=0D0D0D" alt="Stars"></a>
+  <a href="https://github.com/KushaalNayak/Revive-dev/issues"><img src="https://img.shields.io/github/issues/KushaalNayak/Revive-dev?style=for-the-badge&color=ff3366&labelColor=0D0D0D" alt="Issues"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/KushaalNayak/Revive-dev?style=for-the-badge&color=00e5ff&labelColor=0D0D0D" alt="License"></a>
+  <a href="https://www.linkedin.com/in/kushaalbadavath"><img src="https://img.shields.io/badge/LINKEDIN-Kushaal_Badavath-blue?style=for-the-badge&logo=linkedin&color=0077B5&labelColor=0D0D0D" alt="LinkedIn"></a>
+</p>
 
 ---
 
-## Tech Stack
+## ⚡ What is revive.dev?
 
-| Layer | Technology |
-|---|---|
-| **Framework** | Next.js 16 (App Router) |
-| **Language** | TypeScript |
-| **Styling** | Tailwind CSS v4, shadcn/ui, Radix UI |
-| **Database** | PostgreSQL |
-| **ORM** | Prisma |
-| **Auth** | NextAuth.js v4 (GitHub OAuth) |
-| **AI** | Google Gemini API (optional) |
-| **Email** | Resend |
-| **Deployment** | Vercel / Docker |
+Every day, countless brilliant open-source projects fall idle—not because their ideas are weak, but because time, resources, or interests shift. **revive.dev** is a community-driven protocol designed to combat open-source decay. It connects original project creators with passionate developers eager to adopt, maintain, or revive stagnating code.
+
+### The Problem vs. The Protocol
+* **The Decay:** High-potential code sits in static GitHub repositories, gathering dust and turning into technical debt.
+* **The Revival:** Original owners list their repos, specify transition goals, and get matched with new caretakers—complete with AI-assisted diagnostics to build a transition roadmap.
 
 ---
 
-## Project Structure
+## 🛠️ The Tech Stack
 
+Built for maximum velocity, modern design aesthetics, and type-safety.
+
+| Layer | Technology | Role |
+| :--- | :--- | :--- |
+| **Framework** | **Next.js 16 (App Router)** | Full-stack architecture & Server Actions |
+| **Language** | **TypeScript** | Strict, end-to-end type safety |
+| **Database** | **PostgreSQL** | Dynamic relational data store |
+| **ORM** | **Prisma** | Modern type-safe database querying & migrations |
+| **Styling** | **Tailwind CSS v4 & shadcn/ui** | Vibrant, responsive dark-mode first design |
+| **Authentication**| **NextAuth.js v4** | Instant secure GitHub OAuth sign-in |
+| **AI Diagnostics**| **Google Gemini API** | Automated repository code health audits |
+| **Mailing** | **Resend** | Automated owner notifications for adoption requests |
+| **Deployment** | **Docker & Vercel** | Multi-stage Docker ready, optimized Vercel builds |
+
+---
+
+## ✨ Features
+
+* 🔑 **GitHub OAuth Integration** — Start exploring or listing projects in seconds.
+* 📋 **Code Hand-off Protocol** — Standardized listing workflows defining handoff instructions, known issues, and next steps.
+* 🔍 **Global Discoverability** — Search community projects or scan GitHub's massive public archive natively.
+* 🤝 **Adoption & Collaboration Requests** — Apply to adopt a repository with structured messages, triggering automated email updates.
+* 🤖 **AI Repository Diagnostics** — Auto-detects package updates, codebase structural complexity, and outlines step-by-step revival roadmaps via Gemini.
+* 📬 **Ticket Escalation System** — Integrated admin support tickets to escalate unresponsive repository owners.
+* 💾 **Favorites & Collections** — Bookmark repositories you want to monitor or contribute to later.
+
+---
+
+## 📂 Project Structure
+
+```yml
+revive-dev/
+├── app/                    # Next.js App Router (Client pages & Server endpoints)
+│   ├── admin/              # Support ticket administration panel
+│   ├── dashboard/          # Listing creation, profile edit, and request tracker
+│   ├── explore/            # Repository discovery hub (Community & Global Scanner)
+│   ├── login/              # Secure auth entrypoint
+│   └── p/                  # Dynamic public profile pages for listed projects
+├── frontend/               # UI components, layout design, and presentation
+│   ├── components/         # Reusable premium components & shadcn controls
+│   ├── assets/             # Static graphics, logos, and visuals
+│   └── styles/             # Global Tailwind stylesheets and font definitions
+└── backend/                # Core logic, server action controllers, and database configuration
+    ├── actions/            # Next.js Server Actions (API controller logic)
+    ├── prisma/             # PostgreSQL database schema, migrations, and seed script
+    └── lib/                # Shared utilities (auth options, db client, Gemini AI agent)
 ```
-.
-├── app/                    # Next.js App Router (pages & API routes)
-│   ├── admin/              # Admin panel for managing escalation tickets
-│   ├── dashboard/          # User dashboard for listings and requests
-│   ├── explore/            # Browse and discover repos
-│   ├── login/              # Authentication page
-│   └── p/                  # Public project detail pages
-├── frontend/
-│   ├── components/         # Reusable UI components
-│   ├── assets/             # Static assets
-│   ├── styles/             # Global styles
-│   └── lib/                # Frontend utilities
-└── backend/
-    ├── actions/            # Next.js Server Actions (API logic)
-    ├── prisma/             # Prisma schema, migrations, and seed
-    ├── lib/                # Server-side utilities (auth, db, AI)
-    └── types/              # Shared TypeScript types
-```
 
 ---
 
-## Features
-
-- 🔐 **GitHub OAuth** — Sign in instantly with your GitHub account
-- 📋 **List a Project** — Import any of your public repos and describe what help you need
-- 🔍 **Explore** — Browse community-listed projects or search GitHub's global archive
-- 🤝 **Adopt / Contribute** — Request to take over or help with a project
-- 🤖 **AI Diagnostics** — Gemini-powered analysis: why did the project stall? What's the revival roadmap?
-- 💾 **Save Projects** — Bookmark interesting repos for later
-- 📬 **Email Notifications** — Owners get notified of new requests via Resend
-- 🎫 **Admin Escalation** — Escalate unresponsive owners via a support ticket system
-- 🐳 **Docker Ready** — Multi-stage Dockerfile for production deployments
-
----
-
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
+* **Node.js 20+**
+* **PostgreSQL Instance**
+* **GitHub Developer Account** (for OAuth Application credentials)
 
-- Node.js 20+
-- PostgreSQL database
-- A [GitHub OAuth App](https://github.com/settings/developers)
-
-### 1. Clone the Repository
-
+### 1. Clone & Enter
 ```bash
-git clone https://github.com/your-username/revive-dev.git
-cd revive-dev
+git clone https://github.com/KushaalNayak/Revive-dev.git
+cd Revive-dev/revive-dev
 ```
 
-### 2. Install Dependencies
-
+### 2. Install Project Dependencies
 ```bash
 npm install
 ```
 
-### 3. Set Up Environment Variables
-
-Copy the example file and fill in your values:
-
+### 3. Configure the Environment
+Create your local environment file:
 ```bash
 cp .env.example .env
 ```
+Fill in the configuration details inside `.env`:
+* Configure `DATABASE_URL` with your PostgreSQL connection string.
+* Configure `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` from your GitHub Developer settings.
+* Set `NEXTAUTH_SECRET` (generate using `openssl rand -base64 32`).
+* Provide `GEMINI_API_KEY` to enable AI repository scanning features.
 
-| Variable | Description |
-|---|---|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `NEXTAUTH_URL` | Full URL where the app runs (e.g. `http://localhost:3001`) |
-| `NEXTAUTH_SECRET` | Random secret — generate with `openssl rand -base64 32` |
-| `GITHUB_CLIENT_ID` | From your GitHub OAuth App |
-| `GITHUB_CLIENT_SECRET` | From your GitHub OAuth App |
-| `RESEND_API_KEY` | For sending notification emails |
-| `EMAIL_FROM` | Verified sender address in Resend |
-| `ADMIN_EMAILS` | Comma-separated emails that can access `/admin/tickets` |
-| `GITHUB_TOKEN` *(optional)* | Personal access token for higher API rate limits |
-| `GEMINI_API_KEY` *(optional)* | Enables AI-powered diagnostics via Google Gemini |
-
-> **GitHub OAuth Callback URL:** `{NEXTAUTH_URL}/api/auth/callback/github`
-
-### 4. Set Up the Database
-
-Run Prisma migrations to create all tables:
-
+### 4. Database Setup & Seeding
+Deploy database schemas and seed test project entries:
 ```bash
 npx prisma migrate dev --name init
-```
-
-*(Optional)* Seed the database with sample data:
-
-```bash
 npx prisma db seed
 ```
 
-### 5. Start the Development Server
-
+### 5. Launch the App
 ```bash
 npm run dev
 ```
-
-Open [http://localhost:3001](http://localhost:3001) in your browser.
-
----
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push the repo to GitHub
-2. Import the project in [Vercel](https://vercel.com)
-3. Set the **Root Directory** to `my-app`
-4. Add all environment variables in Vercel Project Settings
-5. Deploy
-
-### Docker
-
-Build and run using the included multi-stage `Dockerfile`:
-
-```bash
-# Build the image
-docker build -t revive-dev ./my-app
-
-# Run the container
-docker run -p 3000:3000 --env-file ./my-app/.env revive-dev
-```
+Explore the dashboard locally at **[http://localhost:3001](http://localhost:3001)**.
 
 ---
 
-## Database Schema Overview
+## 🛡️ License
 
-The core models are:
-
-- **User** — GitHub-authenticated users
-- **Project** — Listed repositories with metadata, tags, and help categories
-- **Request** — Adopt or Contribute requests from other users
-- **AIAnalysis** — Gemini-generated diagnostics attached to a project
-- **SupportTicket** — Escalation tickets routed to admins
-- **Revival** — Tracks active revival efforts on global repos
-- **SavedProject / SavedGlobalRepo** — Bookmarked repos
+This project is open-source and licensed under the [MIT License](./LICENSE).
 
 ---
 
-## License
-
-[MIT](./LICENSE)
+<p align="center">
+  Built with ❤️ by <a href="https://www.linkedin.com/in/kushaalbadavath">Kushaal Nayak</a>
+</p>
