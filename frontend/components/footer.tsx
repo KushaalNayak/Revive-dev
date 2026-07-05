@@ -23,7 +23,7 @@ export function Footer() {
                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
                                 <Twitter className="w-4 h-4" />
                             </a>
-                            <a href="https://www.linkedin.com/in/kushaal-nayak" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
+                            <a href="https://www.linkedin.com/in/kushaalbadavath" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full border border-[#373737] text-[#666] hover:text-[#00FF66] hover:border-[#00FF66]/30 transition-all">
                                 <Linkedin className="w-4 h-4" />
                             </a>
                         </div>
@@ -66,7 +66,7 @@ export function Footer() {
                 <div className="pt-12 border-t border-[#373737] flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="flex flex-col md:flex-row items-center gap-6">
                         <p className="text-[#666] text-[12px] font-medium uppercase tracking-widest flex items-center gap-2">
-                            Built with <Heart className="w-3 h-3 text-red-500 fill-current" /> by <a href="https://www.linkedin.com/in/kushaal-nayak" target="_blank" rel="noopener noreferrer" className="text-[#00FF66] hover:underline">Kushaal Nayak</a>
+                            Built with <Heart className="w-3 h-3 text-red-500 fill-current" /> by <a href="https://www.linkedin.com/in/kushaalbadavath" target="_blank" rel="noopener noreferrer" className="text-[#00FF66] hover:underline">Kushaal Nayak</a>
                         </p>
                         <div className="h-px w-8 bg-white/10 hidden md:block" />
                         <a href="https://github.com/KushaalNayak/Revive-dev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#00FF66] hover:text-white transition-colors border border-[#00FF66]/20 bg-[#00FF66]/5 px-4 py-2 rounded-xl">

@@ -27,8 +27,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
     // Load from cached JSON in database if available (sub-100ms load)
     let health: RepoHealth | null = null;
-    if (project.analysis && project.analysis.report) {
-        health = project.analysis.report as unknown as RepoHealth;
+    if (project.analysis && (project.analysis as any).report) {
+        health = (project.analysis as any).report as unknown as RepoHealth;
     } else {
         const githubData = await getGithubRepoDetails(project.repoFullName);
         health = githubData ? await analyzeRepoHealth(githubData) : null;
