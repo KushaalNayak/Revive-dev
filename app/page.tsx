@@ -21,7 +21,7 @@ export default async function Home() {
                 Give abandoned code <br/> a <span className="text-[#00FF66]">second chance.</span>
                 </h1>
                 <p className="text-[#B9B9B9] text-xl md:text-2xl max-w-3xl mb-12 leading-relaxed">
-                  Revive is the developer platform for discovering, adopting, and resurrecting high-potential open-source repositories that maintainers have left behind.
+                  ReviveDev is the developer platform for discovering, adopting, and resurrecting high-potential open-source repositories that maintainers have left behind.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6">

@@ -107,7 +107,8 @@ export function ProjectsFilter() {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                        className="zf-input w-full !pl-12 text-[15px]"
+                        className="zf-input w-full text-[15px]"
+                        style={{ paddingLeft: "3rem" }}
                     />
                 </div>
                 <button 

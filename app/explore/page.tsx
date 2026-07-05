@@ -4,8 +4,9 @@ import { getSavedProjectIds, getSavedProjects, getSavedGlobalRepoFullNames } fro
 import { ProjectCard } from "@/frontend/components/project-card"
 import { GithubRepoCard } from "@/frontend/components/github-repo-card"
 import { ProjectsFilter } from "@/frontend/components/filters"
+import { AiSearchBar } from "@/frontend/components/ai-search-bar"
 import { ProjectStatus, HelpType, RevivalMode } from "@prisma/client"
-import { Search, Database, Radar, Plus, Heart } from "lucide-react"
+import { Search, Database, Radar, Plus, Heart, AlertTriangle } from "lucide-react"
 import Link from "next/link"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/backend/lib/auth-options"
@@ -126,7 +127,7 @@ export default async function ExplorePage({
                                 <Database className={cn("w-4 h-4", tab === "platform" ? "text-[#00FF66]" : "text-[#444]")} />
                                 Platform
                             </div>
-                            <span className="text-[10px] text-[#666] font-medium lowercase tracking-wide">Internal listings on ReviveDev</span>
+                            <span className="text-[10px] text-[#666] font-medium lowercase tracking-wide">Platform is where all the listed projects on ReviveDev are shown</span>
                         </Link>
                         
                         {session && (
@@ -135,7 +136,7 @@ export default async function ExplorePage({
                                     <Heart className={cn("w-4 h-4", tab === "saved" ? "text-red-500 fill-red-500" : "text-[#444]")} />
                                     Interested
                                 </div>
-                                <span className="text-[10px] text-[#666] font-medium lowercase tracking-wide">Repositories you track</span>
+                                <span className="text-[10px] text-[#666] font-medium lowercase tracking-wide">Interested is where you see the repositories you liked</span>
                             </Link>
                         )}
 
@@ -144,7 +145,7 @@ export default async function ExplorePage({
                                 <Radar className={cn("w-4 h-4", tab === "global" ? "animate-pulse text-[#00FF66]" : "text-[#444]")} />
                                 Global Scanner
                             </div>
-                            <span className="text-[10px] text-[#666] font-medium lowercase tracking-wide">Scan & acquire from all of GitHub</span>
+                            <span className="text-[10px] text-[#666] font-medium lowercase tracking-wide">Global Scanner is where you can scan and find all the repositories you want from GitHub</span>
                         </Link>
                     </div>
                 </div>
@@ -170,15 +171,29 @@ export default async function ExplorePage({
 
                 {/* Main Content */}
                 <div className="flex-1">
+                    {/* Developer Insight Notice */}
+                    <div className="mb-8 p-5 zf-card bg-[#111111]/40 border border-amber-500/20 rounded-2xl relative overflow-hidden flex items-start gap-4">
+                        <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                        <div>
+                            <h4 className="text-amber-500 font-bold text-xs uppercase tracking-widest mb-1">Developer Insight & Disclaimer</h4>
+                            <p className="text-[#B9B9B9] text-xs leading-relaxed font-medium">
+                                ReviveDev queries the GitHub API directly to scan, track, and analyze repositories. Because we retrieve metadata dynamically and utilize AI heuristics, some insights or repository statuses may have slight inaccuracies or discrepancies. Please verify critical details directly on the source repository.
+                            </p>
+                        </div>
+                    </div>
+
+                    {session && (tab === "platform" || tab === "global") && (
+                        <AiSearchBar />
+                    )}
+
                     {tab === "global" && (
-                        <div className="mb-10 p-6 zf-card bg-[#111111] border-[#00FF66]/20 relative overflow-hidden group">
-                            <div className="absolute top-0 left-0 w-1 h-full bg-[#00FF66] shadow-[0_0_20px_#00FF66]" />
-                            <div className="flex items-center gap-3 mb-3">
+                        <div className="mb-10 p-6 zf-card bg-[#111111]/40 border border-[#373737]/50 rounded-2xl relative overflow-hidden flex flex-col gap-2">
+                            <div className="flex items-center gap-3">
                                 <Radar className="w-5 h-5 text-[#00FF66] animate-pulse" />
-                                <h4 className="text-[#00FF66] font-bold uppercase tracking-widest text-[14px]">Global Scanner Notice</h4>
+                                <h4 className="text-[#00FF66] font-bold uppercase tracking-widest text-xs">Global Scanner</h4>
                             </div>
-                            <p className="text-[#B9B9B9] text-[13px] leading-relaxed uppercase tracking-wider font-medium">
-                                PLEASE NOTE: THESE RESULTS ARE PULLED DIRECTLY FROM GITHUB BASED ON YOUR SEARCH CRITERIA. WE CANNOT GUARANTEE WHETHER THESE REPOSITORIES HAVE BEEN OFFICIALLY ABANDONED BY THEIR AUTHORS. IF YOU OWN AN INACTIVE PROJECT AND WISH TO FIND NEW MAINTAINERS, <Link href="/dashboard/new" className="text-white hover:text-[#00FF66] underline decoration-[#00FF66]/50 underline-offset-4 transition-colors">PLEASE LIST IT HERE</Link>. INTERESTED DEVELOPERS WILL BE ABLE TO CONTACT YOU DIRECTLY. THANK YOU, THE REVIVEDEV TEAM.
+                            <p className="text-[#B9B9B9] text-xs leading-relaxed font-medium">
+                                These repositories are searched dynamically on GitHub. We utilize free-tier API endpoints for translation and parsing, so processing can take a moment—please bear with us! If you own a repository and want to hand it over to another developer, <Link href="/dashboard/new" className="text-[#00FF66] underline hover:text-white transition-colors">list your project here</Link> so others can connect with you directly.
                             </p>
                         </div>
                     )}

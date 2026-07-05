@@ -36,15 +36,24 @@ export function DashboardFilter() {
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="relative group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#B9B9B9] group-focus-within:text-[#00FF66] transition-colors" />
-                <input
-                    placeholder="Search projects..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    className="zf-input w-full pl-11"
-                />
+            <div className="flex flex-col gap-3">
+                <div className="relative group w-full">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#B9B9B9] group-focus-within:text-[#00FF66] transition-colors" />
+                    <input
+                        placeholder="Search projects..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                        className="zf-input w-full text-[15px]"
+                        style={{ paddingLeft: "3rem" }}
+                    />
+                </div>
+                <button 
+                    onClick={handleSearch}
+                    className="zf-button w-full text-[14px] font-bold py-3"
+                >
+                    Search
+                </button>
             </div>
             
             <div className="flex flex-col gap-5">

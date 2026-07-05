@@ -67,6 +67,46 @@ export async function generateGithubQuery(prompt: string) {
     }
   }
 
-  // Final fallback: Raw cleaning
+  // Final fallback: Smart Local Parsing
+  const query = prompt.toLowerCase();
+  
+  // Extract language
+  let lang = "";
+  const languages = ["python", "javascript", "typescript", "rust", "go", "java", "ruby", "php", "c++", "c#", "html", "css"];
+  for (const l of languages) {
+    if (query.includes(l)) {
+      lang = `language:${l}`;
+      break;
+    }
+  }
+  
+  // Extract stars
+  let starsQuery = "";
+  const starMatch = query.match(/(\d+)\s*(k)?\s*stars?/);
+  if (starMatch) {
+    let starCount = parseInt(starMatch[1]);
+    if (starMatch[2] === "k") {
+      starCount = starCount * 1000;
+    }
+    starsQuery = `stars:>=${starCount}`;
+  }
+  
+  // Extract key terms
+  const stopWords = ["i", "want", "to", "find", "me", "a", "help", "looking", "for", "with", "stars", "atleast", "at", "least", "project", "repo", "repository", "neglected", "abandoned", "inactive", "im", "i'm", "atleeast"];
+  const words = query.split(/\s+/).filter(w => w && !stopWords.includes(w) && !languages.includes(w) && !w.match(/^\d+$/));
+  
+  const finalParts: string[] = [];
+  if (words.length > 0) {
+    finalParts.push(words.join(" "));
+  }
+  if (lang) finalParts.push(lang);
+  if (starsQuery) finalParts.push(starsQuery);
+  
+  const parsedFallback = finalParts.join(" ").trim();
+  if (parsedFallback) {
+    console.log(`[Local Fallback Parser] "${prompt}" -> "${parsedFallback}"`);
+    return parsedFallback;
+  }
+  
   return prompt.replace(/i want to|create a|find me a|help me find/gi, "").trim();
 }

@@ -8,7 +8,7 @@ export default function RoadmapPage() {
             </div>
             <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-6">Community Roadmap</h1>
             <p className="text-[#B9B9B9] text-lg max-w-2xl leading-relaxed">
-                See what's next for ReviveDev. We are actively working on decentralized maintainer verification, automated pull request analysis, and an official npm package transfer protocol.
+                See what&apos;s next for ReviveDev. We are actively working on decentralized maintainer verification, automated pull request analysis, and an official npm package transfer protocol.
             </p>
         </div>
     )

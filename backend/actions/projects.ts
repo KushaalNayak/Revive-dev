@@ -80,7 +80,8 @@ export async function createProjectListing(data: ProjectFormData) {
                     stoppageReason: analysis.stoppageReason,
                     structureExplanation: analysis.structureExplanation,
                     documentationQuality: analysis.documentationQuality,
-                    issueAnalysis: analysis.issueAnalysis
+                    issueAnalysis: analysis.issueAnalysis,
+                    report: analysis as unknown as Prisma.InputJsonValue
                 }
             }
         },

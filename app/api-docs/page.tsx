@@ -12,7 +12,7 @@ export default function ApiDocsPage() {
             </p>
             <div className="p-4 bg-[#111111] border border-[#373737] rounded-xl text-left max-w-lg w-full shadow-[0_0_30px_rgba(0,255,102,0.05)]">
                 <p className="text-[#00FF66] font-mono text-[13px] font-bold">GET /api/v1/projects</p>
-                <p className="text-[#666] text-[11px] mt-2 font-mono uppercase tracking-widest">// Coming soon: Full Swagger documentation</p>
+                <p className="text-[#666] text-[11px] mt-2 font-mono uppercase tracking-widest">Coming soon: Full Swagger documentation</p>
             </div>
         </div>
     )

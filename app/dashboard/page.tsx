@@ -52,11 +52,11 @@ export default async function DashboardPage({
     const listedRepoFullNames = myProjects.map(p => p.repoFullName)
 
     const tabs = [
-        { id: 'projects', label: 'Listed', count: myProjects.length, icon: LayoutDashboard },
-        { id: 'github', label: 'Import', count: githubTotalCount, icon: Github },
-        { id: 'incoming', label: 'Inbound', count: incomingRequests.length, icon: Inbox },
-        { id: 'outgoing', label: 'Outbound', count: outgoingRequests.length, icon: Send },
-        { id: 'adopted', label: 'Revived', count: adoptedProjects.length, icon: Briefcase }
+        { id: 'projects', label: 'Listed', desc: 'Listed is where your active listings are shown', count: myProjects.length, icon: LayoutDashboard },
+        { id: 'github', label: 'Import', desc: 'Import is where you connect your GitHub repositories', count: githubTotalCount, icon: Github },
+        { id: 'incoming', label: 'Inbound', desc: 'Inbound is where you manage incoming requests', count: incomingRequests.length, icon: Inbox },
+        { id: 'outgoing', label: 'Outbound', desc: 'Outbound is where you track sent requests', count: outgoingRequests.length, icon: Send },
+        { id: 'adopted', label: 'Revived', desc: 'Revived is where your adopted repos are listed', count: adoptedProjects.length, icon: Briefcase }
     ]
 
     return (
@@ -92,13 +92,16 @@ export default async function DashboardPage({
                                 key={t.id}
                                 href={`/dashboard?tab=${t.id}`} 
                                 className={cn(
-                                    "flex items-center gap-2 pb-5 border-b-[2px] text-[14px] font-bold tracking-tight transition-all uppercase whitespace-nowrap",
-                                    tab === t.id ? "border-[#00FF66] text-[#00FF66]" : "border-transparent text-[#666] hover:text-white"
+                                    "flex flex-col gap-1 pb-5 border-b-[2px] transition-all group",
+                                    tab === t.id ? "border-[#00FF66]" : "border-transparent"
                                 )}
                             >
-                                <t.icon className={cn("w-4 h-4", tab === t.id ? "text-[#00FF66]" : "text-[#444]")} />
-                                {t.label}
-                                <span className={cn("text-[10px] opacity-40 ml-1", tab === t.id && "text-[#00FF66]")}>({t.count})</span>
+                                <div className={cn("flex items-center gap-2 text-[14px] font-bold tracking-tight uppercase whitespace-nowrap", tab === t.id ? "text-[#00FF66]" : "text-[#666] group-hover:text-white")}>
+                                    <t.icon className={cn("w-4 h-4", tab === t.id ? "text-[#00FF66]" : "text-[#444]")} />
+                                    {t.label}
+                                    <span className={cn("text-[10px] opacity-40 ml-1", tab === t.id && "text-[#00FF66]")}>({t.count})</span>
+                                </div>
+                                <span className="text-[10px] text-[#666] font-medium lowercase tracking-wide">{t.desc}</span>
                             </Link>
                         ))}
                     </div>
