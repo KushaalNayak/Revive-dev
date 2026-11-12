@@ -7,6 +7,7 @@ import { Adapter } from "next-auth/adapters"
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma) as Adapter,
     secret: process.env.NEXTAUTH_SECRET,
+    debug: process.env.NODE_ENV === "development",
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_CLIENT_ID || "",
