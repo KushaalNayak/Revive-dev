@@ -1,5 +1,5 @@
 import { RevivalMode } from "@/backend/lib/validations"
-import { Shield, Users, Radio, CheckCircle2 } from "lucide-react"
+import { Shield, Radio, CheckCircle2 } from "lucide-react"
 import { cn } from "@/frontend/lib/utils"
 
 export function RevivalModeBadge({ mode }: { mode: RevivalMode }) {

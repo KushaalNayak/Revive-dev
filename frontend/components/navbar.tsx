@@ -2,7 +2,7 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/backend/lib/auth-options"
 import { SignInButton, UserNav } from "@/frontend/components/auth-buttons"
-import { Search, Rocket, Radar } from "lucide-react"
+import { Search, Rocket } from "lucide-react"
 
 export async function Navbar() {
     const session = await getServerSession(authOptions)

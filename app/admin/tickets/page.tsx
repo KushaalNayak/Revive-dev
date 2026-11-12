@@ -10,7 +10,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/frontend/components/ui/table"
-import { Badge } from "@/frontend/components/ui/badge"
 import { AdminActionButtons } from "@/frontend/components/admin/action-buttons"
 import { SupportTicket, Project, User } from "@prisma/client"
 

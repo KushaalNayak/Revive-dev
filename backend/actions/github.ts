@@ -14,14 +14,19 @@ export async function fetchUserRepos(params?: {
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) throw new Error("Unauthorized")
 
-    const account = await prisma.account.findFirst({
-        where: {
-            userId: session.user.id,
-            provider: "github",
-        },
-    })
+    let accessToken = session.accessToken
 
-    if (!account?.access_token) {
+    if (!accessToken) {
+        const account = await prisma.account.findFirst({
+            where: {
+                userId: session.user.id,
+                provider: "github",
+            },
+        })
+        accessToken = account?.access_token ?? undefined
+    }
+
+    if (!accessToken) {
         throw new Error("GitHub account not linked or missing token")
     }
 
@@ -38,13 +43,17 @@ export async function fetchUserRepos(params?: {
 
         const res = await fetch(url, {
             headers: {
-                Authorization: `Bearer ${account.access_token}`,
+                Authorization: `Bearer ${accessToken}`,
                 Accept: "application/vnd.github.v3+json",
             },
         })
 
         if (!res.ok) {
-            console.error("GitHub API Error in fetchUserRepos:", await res.text())
+            const errText = await res.text()
+            console.error("GitHub API Error in fetchUserRepos:", res.status, errText)
+            if (res.status === 401) {
+                throw new Error("GitHub token expired or revoked. Please sign in again.")
+            }
             break
         }
 
@@ -134,9 +143,9 @@ export type GithubRepo = {
 
 export async function searchGithubRepositories(query: string = "topic:help-wanted", page: number = 1) {
     const session = await getServerSession(authOptions);
-    let accessToken = process.env.GITHUB_TOKEN;
+    let accessToken = session?.accessToken || process.env.GITHUB_TOKEN;
 
-    if (session?.user?.id) {
+    if (!session?.accessToken && session?.user?.id) {
         const account = await prisma.account.findFirst({
             where: {
                 userId: session.user.id,
@@ -200,9 +209,9 @@ export async function searchAbandonedGithubRepos({
 
 export async function getGithubRepoDetails(fullName: string) {
     const session = await getServerSession(authOptions);
-    let accessToken = process.env.GITHUB_TOKEN;
+    let accessToken = session?.accessToken || process.env.GITHUB_TOKEN;
 
-    if (session?.user?.id) {
+    if (!session?.accessToken && session?.user?.id) {
         const account = await prisma.account.findFirst({
             where: {
                 userId: session.user.id,
@@ -225,6 +234,3 @@ export async function getGithubRepoDetails(fullName: string) {
     if (!res.ok) return null
     return await res.json() as GithubRepo
 }
-
-
-

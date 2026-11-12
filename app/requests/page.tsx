@@ -14,7 +14,7 @@ export default async function RequestsPage({
 }) {
     const { tab = "incoming" } = await searchParams
     const session = await getServerSession(authOptions)
-    if (!session) redirect("/api/auth/signin")
+    if (!session) redirect("/login")
 
     const [incomingRequests, outgoingRequests] = await Promise.all([
         getIncomingRequests("ALL"),

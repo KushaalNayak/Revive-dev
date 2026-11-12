@@ -1,15 +1,7 @@
-import { Badge } from "@/frontend/components/ui/badge"
 import { ProjectStatus, RequestStatus } from "@prisma/client"
 import { cn } from "@/frontend/lib/utils"
 
 export function ProjectStatusBadge({ status }: { status: ProjectStatus }) {
-    const variants: Record<ProjectStatus, "default" | "secondary" | "destructive" | "outline" | "premium"> = {
-        [ProjectStatus.LOOKING_FOR_HELP]: "default",
-        [ProjectStatus.IN_PROGRESS]: "premium",
-        [ProjectStatus.REVIVED]: "outline",
-        [ProjectStatus.ARCHIVED]: "secondary",
-    }
-
     const labels = {
         [ProjectStatus.LOOKING_FOR_HELP]: "Looking for Help",
         [ProjectStatus.IN_PROGRESS]: "In Progress",

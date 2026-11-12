@@ -5,7 +5,6 @@ import { authOptions } from "@/backend/lib/auth-options"
 import { redirect } from "next/navigation"
 import { DashboardProjectList } from "@/frontend/components/dashboard/project-list"
 import { DashboardRequestList } from "@/frontend/components/dashboard/request-list"
-import { Button } from "@/frontend/components/ui/button"
 import Link from "next/link"
 import { Plus, LayoutDashboard, Github, Inbox, Send, Briefcase, Search } from "lucide-react"
 import { fetchUserRepos } from "@/backend/actions/github"
@@ -34,7 +33,7 @@ export default async function DashboardPage({
         : undefined
 
     const session = await getServerSession(authOptions)
-    if (!session) redirect("/api/auth/signin")
+    if (!session) redirect("/login")
 
     const [myProjects, adoptedProjects, incomingRequests, outgoingRequests, githubData] = await Promise.all([
         getUserProjects({ search, language, sort, revivalMode }),

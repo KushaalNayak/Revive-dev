@@ -1,12 +1,7 @@
-import { getExploreProjects } from "@/backend/actions/projects"
 import Link from "next/link"
-import { Search, Github, Activity, Shield, Users, Radar } from "lucide-react"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/backend/lib/auth-options"
-import { ProjectStatus } from "@prisma/client"
+import { Search, Activity, Shield, Users, Radar } from "lucide-react"
 
 export default async function Home() {
-  const session = await getServerSession(authOptions)
 
   return (
     <div className="flex flex-col min-h-screen bg-[#0B0B0B] text-white relative overflow-hidden">

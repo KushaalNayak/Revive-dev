@@ -19,7 +19,7 @@ export function SaveGlobalRepoButton({ repoFullName, initialIsSaved }: { repoFul
         try {
             await toggleSaveGlobalRepo(repoFullName)
             toast.success(nextState ? "Added to your interests" : "Removed from interests")
-        } catch (error) {
+        } catch {
             setIsSaved(isSaved) // Rollback
             toast.error("Failed to update interest status")
         }

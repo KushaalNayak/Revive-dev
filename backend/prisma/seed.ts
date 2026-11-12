@@ -1,4 +1,4 @@
-import { PrismaClient, ProjectStatus, RequestType, RequestStatus, CompletionStage, AbandonmentReason, HelpType } from '@prisma/client'
+import { PrismaClient, ProjectStatus, CompletionStage, AbandonmentReason, HelpType } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -34,7 +34,7 @@ async function main() {
         })
 
         // Create REAL Projects based on user request
-        const project1 = await prisma.project.create({
+        await prisma.project.create({
             data: {
                 ownerId: kushaal.id,
                 repoUrl: 'https://github.com/expressjs/express',
@@ -56,7 +56,7 @@ async function main() {
             },
         })
 
-        const project2 = await prisma.project.create({
+        await prisma.project.create({
             data: {
                 ownerId: charlie.id,
                 repoUrl: 'https://github.com/request/request',
@@ -78,7 +78,7 @@ async function main() {
             },
         })
 
-        const project3 = await prisma.project.create({
+        await prisma.project.create({
             data: {
                 ownerId: kushaal.id,
                 repoUrl: 'https://github.com/chartjs/Chart.js',
@@ -100,7 +100,7 @@ async function main() {
             },
         })
 
-        const project4 = await prisma.project.create({
+        await prisma.project.create({
             data: {
                 ownerId: charlie.id,
                 repoUrl: 'https://github.com/visionmedia/page.js',

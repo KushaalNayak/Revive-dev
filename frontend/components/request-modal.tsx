@@ -10,8 +10,6 @@ import { Button } from "@/frontend/components/ui/button"
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,

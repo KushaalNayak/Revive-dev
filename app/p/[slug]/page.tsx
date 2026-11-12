@@ -1,7 +1,6 @@
 import { getProjectBySlug } from "@/backend/actions/projects"
 import { notFound } from "next/navigation"
 import { ProjectStatusBadge } from "@/frontend/components/status-badge"
-import { Badge } from "@/frontend/components/ui/badge"
 import { Button } from "@/frontend/components/ui/button"
 import Link from "next/link"
 import { Github, Calendar, Settings, CheckCircle2, Globe, Sparkles, Star, ArrowUpRight, Flame, Shield, TrendingUp, AlertTriangle, Hammer, Clock, Users } from "lucide-react"
@@ -12,7 +11,6 @@ import { authOptions } from "@/backend/lib/auth-options"
 import { getGithubRepoDetails } from "@/backend/actions/github"
 import { ReviveScore } from "@/frontend/components/revive-score"
 import { RevivalModeBadge } from "@/frontend/components/revival-mode-badge"
-import { ProjectStatus } from "@prisma/client"
 import { RevivalChecklist } from "@/frontend/components/revival-checklist"
 import { analyzeRepoHealth, RepoHealth } from "@/backend/lib/ai-service"
 
@@ -27,8 +25,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
     // Load from cached JSON in database if available (sub-100ms load)
     let health: RepoHealth | null = null;
-    if (project.analysis && (project.analysis as any).report) {
-        health = (project.analysis as any).report as unknown as RepoHealth;
+    const analysisReport = (project.analysis as unknown as { report?: RepoHealth } | null)?.report;
+    if (analysisReport) {
+        health = analysisReport;
     } else {
         const githubData = await getGithubRepoDetails(project.repoFullName);
         health = githubData ? await analyzeRepoHealth(githubData) : null;

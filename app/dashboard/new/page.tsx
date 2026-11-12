@@ -14,7 +14,7 @@ export default async function NewProjectPage({
     searchParams: Promise<{ repo?: string }>
 }) {
     const session = await getServerSession(authOptions)
-    if (!session) redirect("/api/auth/signin")
+    if (!session) redirect("/login")
 
     let repos: GithubRepo[] = []
     let externalRepoData: GithubRepo | null = null
@@ -43,9 +43,9 @@ export default async function NewProjectPage({
     } catch (err: unknown) {
         const error = err as { message?: string };
         console.error("Failed to fetch repos", error)
-        if (error.message?.includes("not linked") || error.message?.includes("missing token")) {
+        if (error.message?.includes("not linked") || error.message?.includes("missing token") || error.message?.includes("expired") || error.message?.includes("revoked")) {
             githubError = true
-            errorMessage = "Your GitHub session has expired or the database was reset. Please sign out and sign back in."
+            errorMessage = "Your GitHub session has expired or permissions were updated. Please sign out and sign back in."
         } else {
             errorMessage = "Failed to sync repositories."
         }

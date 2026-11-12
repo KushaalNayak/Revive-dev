@@ -1,11 +1,11 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useState } from "react"
+import { useCallback, useState, Suspense } from "react"
 import { ProjectStatus, RevivalMode } from "@prisma/client"
-import { Search, X } from "lucide-react"
+import { Search } from "lucide-react"
 
-export function ProjectsFilter() {
+function ProjectsFilterContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
 
@@ -146,5 +146,13 @@ export function ProjectsFilter() {
                 </button>
             )}
         </div>
+    )
+}
+
+export function ProjectsFilter() {
+    return (
+        <Suspense fallback={<div className="text-xs text-[#888] py-4">Loading filters...</div>}>
+            <ProjectsFilterContent />
+        </Suspense>
     )
 }
