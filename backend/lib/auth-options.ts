@@ -4,10 +4,71 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "@/backend/lib/prisma"
 import { Adapter } from "next-auth/adapters"
 
+const useSecureCookies = process.env.NEXTAUTH_URL?.startsWith("https://")
+const cookiePrefix = useSecureCookies ? "__Secure-" : ""
+const isProdRevive = process.env.NEXTAUTH_URL?.includes("revivedev.app")
+const cookieDomain = isProdRevive ? ".revivedev.app" : undefined
+
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma) as Adapter,
     secret: process.env.NEXTAUTH_SECRET,
     debug: process.env.NODE_ENV === "development",
+    ...(cookieDomain ? {
+        cookies: {
+            sessionToken: {
+                name: `${cookiePrefix}next-auth.session-token`,
+                options: {
+                    httpOnly: true,
+                    sameSite: "lax",
+                    path: "/",
+                    domain: cookieDomain,
+                    secure: useSecureCookies,
+                },
+            },
+            callbackUrl: {
+                name: `${cookiePrefix}next-auth.callback-url`,
+                options: {
+                    httpOnly: true,
+                    sameSite: "lax",
+                    path: "/",
+                    domain: cookieDomain,
+                    secure: useSecureCookies,
+                },
+            },
+            csrfToken: {
+                name: `${cookiePrefix}next-auth.csrf-token`,
+                options: {
+                    httpOnly: true,
+                    sameSite: "lax",
+                    path: "/",
+                    domain: cookieDomain,
+                    secure: useSecureCookies,
+                },
+            },
+            pkceCodeVerifier: {
+                name: `${cookiePrefix}next-auth.pkce.code_verifier`,
+                options: {
+                    httpOnly: true,
+                    sameSite: "lax",
+                    path: "/",
+                    domain: cookieDomain,
+                    secure: useSecureCookies,
+                    maxAge: 60 * 15,
+                },
+            },
+            state: {
+                name: `${cookiePrefix}next-auth.state`,
+                options: {
+                    httpOnly: true,
+                    sameSite: "lax",
+                    path: "/",
+                    domain: cookieDomain,
+                    secure: useSecureCookies,
+                    maxAge: 60 * 15,
+                },
+            },
+        },
+    } : {}),
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_CLIENT_ID || "",
